@@ -10,44 +10,40 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow: auto; /* Ensure scrolling is enabled */
 }
 
 body {
+    background: url('path_to_your_image.jpg') no-repeat center center;
+    background-size: cover;
     font-family: 'Arial, sans-serif';
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    position: relative; /* Added for positioning butterflies */
+    position: relative; /* For positioning butterflies */
 }
 
-.invitation-card {
-    background: url('path_to_your_image.jpg') no-repeat center center;
-    background-size: cover;
-    width: 400px;
-    height: 850px;
+.container {
+    width: 100%;
+    max-width: 1200px; /* Set max width for the content */
+    margin: 20px;
+    padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    overflow: hidden;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
     box-sizing: border-box;
-    margin-top: 50px; /* Adjusted margin */
-    padding-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .header-overlay {
     background-color: rgba(255, 255, 255, 0.8);
-    width: 100%;
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 .header-overlay h1 {
@@ -74,12 +70,14 @@ body {
 }
 
 .content {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    padding: 0px;
+    border-radius: 10px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     width: 100%;
     box-sizing: border-box;
+    margin-top: 0px;
+    text-align: center;
 }
 
 .details {
@@ -125,18 +123,28 @@ body {
 /* Animation Keyframes */
 @keyframes fall {
     to {
-        transform: translateY(100vh) rotate(360deg); /* Move down to bottom of viewport */
+        transform: translateY(100vh); /* Move down to bottom of viewport */
     }
 }
 </style>
 </head>
 <body>
-    <div class="invitation-card">
-        <div class="header-overlay">
+    <div class="container">
+        <!-- <div class="header-overlay">
             <h1>John & Jane</h1>
-            <p>Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i </p><span class="invitee-name">[Nama Tamu]</span> <p> hadir di acara pernikahan kami. Bergabunglah dalam merayakan cinta kami pada:</p>
+            <p>Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i <span class="invitee-name">[Nama Tamu]</span> untuk hadir di acara pernikahan kami. Bergabunglah dalam merayakan cinta kami pada:</p>
             <h2>12 Agustus 2024</h2>
             <p>di Sunset Beach Resort yang indah</p>
+        </div> -->
+        <div class="content">
+            <div class="details">
+                <h1>Bayu & Pasangan</h1>
+                <p>Dengan penuh keikhlasan dan harapan akan berkah serta ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i</p>
+                    <span class="invitee-name">[Nama Tamu]</span>
+                    <p>untuk turut hadir dalam acara pernikahan kami. Kami mengharapkan kehadiran serta doa restu Anda dalam merayakan cinta kami pada:</p>
+                <h2>12 Agustus 2024</h2>
+                <p>di Sunset Beach Resort yang indah</p>
+            </div>
             <div class="details">
                 <h3>Jadwal Acara:</h3>
                 <ul>
@@ -146,7 +154,7 @@ body {
             </div>
             <div class="details">
                 <h3>Lokasi:</h3>
-                <p>Sunset Beach Resort, Jl. Paradise No.123, Pulau Tropis</p>
+                <p><a href="https://maps.app.goo.gl/4N1mpTxtU3DCUq2C6" target="_blank">Sunset Beach Resort, Jl. Paradise No.123, Pulau Tropis</a></p>
                 <img src="path_to_qrcode_image.jpg" alt="QR Code untuk Lokasi" class="qrcode">
             </div>
             <div class="details">
@@ -159,16 +167,21 @@ body {
     </div>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', (event) => {
+    // Mengambil parameter dari URL
     const params = new URLSearchParams(window.location.search);
     let inviteeName = params.get('namatamu');
+
+    // Jika parameter namatamu ada, perbarui konten HTML
     if (inviteeName) {
         inviteeName = capitalizeWords(inviteeName);
         document.querySelector('.invitee-name').textContent = inviteeName;
+    }else{
+        document.querySelector('.invitee-name').textContent = "-";
     }
 
-    const numButterflies = Math.floor(Math.random() * 11) + 15; // Random number of butterflies between 15 and 25
+    // Menambahkan kupu-kupu secara acak
+    const numButterflies = Math.floor(Math.random() * 5) + 6; // Random number of butterflies between 6 and 10
     for (let i = 0; i < numButterflies; i++) {
         const butterfly = document.createElement('div');
         butterfly.classList.add('butterfly');
